@@ -16,19 +16,38 @@ def load_points(dir_project, with_trees=True, max_colors_1=False, delimiter=',')
     print('loading data ...')
 
     dir_data = os.path.join(dir_project, 'dataset')
-    dir_trees = os.path.join(dir_data, 'apple_trees.txt')
-    dir_root_apples = os.path.join(dir_data, 'some_apples')
-    dirs_apples = glob.glob(os.path.join(dir_root_apples, '2018_01_*.txt'))
-    # dirs_apples = dirs_apples[slice(0, 3, 1)]
 
     if with_trees:
-        points_np = cp.txt.csv_file_to_array(
-            filename=dir_trees, rows=slice(0, None, 1), columns=slice(0, 6, 1), delimiter=delimiter, dtype='f', encoding=None)
+        # dir_trees = os.path.join(dir_data, 'apple_trees.txt')
+        # points_np = cp.txt.csv_file_to_array(
+        #     filename=dir_trees, rows=slice(0, None, 1), columns=slice(0, 6, 1),
+        #     delimiter=delimiter, dtype='f', encoding=None)
+
+        # n_parts = 10
+        # n = math.ceil(points_np.shape[0] / n_parts)
+        # points_parts = [points_np[slice(i * n, (i + 1) * n), :].tolist() for i in range(0, n_parts, 1)]
+        # for i in range(0, n_parts, 1):
+        #     dir_part_i = os.path.join(dir_data, 'apple_trees_part_{:0>2d}.txt'.format(i))
+        #     cp.txt.lines_to_csv_file(lines=points_parts[i], directory=dir_part_i, headers=None, delimiter=' ')
+
+        dirs_parts = glob.glob(os.path.join(dir_data, 'apple_trees_part_*.txt'))
+        n_parts = len(dirs_parts)
+        points_np = [cp.txt.csv_file_to_array(
+            filename=dirs_parts[a], rows=slice(0, None, 1), columns=slice(0, 6, 1),
+            delimiter=delimiter, dtype='f', encoding=None)
+            for a in range(0, n_parts, 1)]
+        points_np = np.concatenate(points_np, axis=0)
     else:
+
+        dir_root_apples = os.path.join(dir_data, 'some_apples')
+        dirs_apples = glob.glob(os.path.join(dir_root_apples, '2018_01_*.txt'))
+        # dirs_apples = dirs_apples[slice(0, 3, 1)]
+
         n_apples = len(dirs_apples)
 
         points_np = [cp.txt.csv_file_to_array(
-            filename=dirs_apples[a], rows=slice(0, None, 1), columns=slice(0, 6, 1), delimiter=delimiter, dtype='f', encoding=None)
+            filename=dirs_apples[a], rows=slice(0, None, 1), columns=slice(0, 6, 1),
+            delimiter=delimiter, dtype='f', encoding=None)
             for a in range(0, n_apples, 1)]
 
         points_np = np.concatenate(points_np, axis=0)
