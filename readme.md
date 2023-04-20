@@ -43,8 +43,10 @@ slices of 2d images. You need to press the keys UP and DOWN to change displaying
   [CalaPy](https://pypi.org/project/calapy) which is my own library that contains a collection of functions that
   I tend to use in different projects. Make sure you use the version 0.1.15.6 or older
 
-- save the files 3DCVROBO23_dataset_v0_1/apple_trees.txt and 3DCVROBO23_dataset_v0_1/some_apples/2018_01_*.txt
-  in the same root directory of main.py ./
+- save the files "dataset/apple_trees.txt" and "dataset/some_apples/2018_01_*.txt"
+  in the same root directory of main.py "./". These files were too big to be uploaded to this github repository.
+  If needed, contact me.  
+
 
 
 ## Results

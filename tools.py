@@ -15,7 +15,7 @@ def load_points(dir_project, with_trees=True, max_colors_1=False, delimiter=',')
     timer = cp.clock.Timer()
     print('loading data ...')
 
-    dir_data = os.path.join(dir_project, '3DCVROBO23_dataset_v0_1')
+    dir_data = os.path.join(dir_project, 'dataset')
     dir_trees = os.path.join(dir_data, 'apple_trees.txt')
     dir_root_apples = os.path.join(dir_data, 'some_apples')
     dirs_apples = glob.glob(os.path.join(dir_root_apples, '2018_01_*.txt'))
